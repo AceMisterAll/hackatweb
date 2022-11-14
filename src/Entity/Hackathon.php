@@ -14,8 +14,6 @@ class Hackathon
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idHackathon = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
@@ -59,18 +57,6 @@ class Hackathon
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdHackathon(): ?int
-    {
-        return $this->idHackathon;
-    }
-
-    public function setIdHackathon(int $idHackathon): self
-    {
-        $this->idHackathon = $idHackathon;
-
-        return $this;
     }
 
     public function getDateDebut(): ?\DateTimeInterface
