@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+{% for leHackathon in lesHackathons %}
+<div class="card" style="width: 18rem;">
+        <img>{{ leHackathon.image }}</img>
+        <h3>{{ leHackathon.description }}</h3>
+        <p>{{ leHackathon.dateDebut | date("d:m:Y")}}</p>
+        <p>{{ leHackathon.dateFin | date("d:m:Y") }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
