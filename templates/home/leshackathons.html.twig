@@ -7,12 +7,13 @@
 </head>
 <body>
 
-{% for leHackathon in lesHackathons %}
+{% for lehackathon in lehackathons %}
 <div class="card" style="width: 18rem;">
-        <img>{{ leHackathon.image }}</img>
-        <h3>{{ leHackathon.description }}</h3>
-        <p>{{ leHackathon.dateDebut | date("d:m:Y")}}</p>
-        <p>{{ leHackathon.dateFin | date("d:m:Y") }}</p>
+        <img>{{ lehackathon.image }}</img>
+        <p>{{ lehackathon.theme }}</p>
+        <h3>{{ lehackathon.description }}</h3>
+        <p>{{ lehackathon.dateDebut | date("d:m:Y")}}</p>
+        <p>{{ lehackathon.dateFin | date("d:m:Y") }}</p>
         </div>
     {% endfor %}
 {% endblock %}

@@ -19,12 +19,14 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/Hackathons', name: 'app_Hackathons')]
-    public function ListeHackathon(): Response
+    #[Route('/hackathons', name: 'app_hackathons')]
+    public function ListeHackathon(ManagerRegistry $doctrine): Response
     {
-        return $this->render('home/index.html.twig', [
-            //'controller_name' => 'HomeController',
-            'messageAccueil' => 'Bienvenue',
+        $repository = $doctrine->getRepository(Hackathon::class);
+        $lehackathon = $repository->findall();
+        dump($lehackathon);
+        return $this->render('home/leshackathons.html.twig', [
+            'lehackathons' => $lehackathon,
         ]);
     }
 }
@@ -83,14 +85,7 @@ class HomeController extends AbstractController
 */
 
 
-
-
-
-
-
-
-
-
+/*
 
     #[Route('/hackathon/{id}', name: 'app_hackathons_detail')]
     public function lehackathons(ManagerRegistry $doctrine, $id): Response
@@ -103,7 +98,7 @@ class HomeController extends AbstractController
         ]);
 
     }
-}
+    */
 
 
 
