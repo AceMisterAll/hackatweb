@@ -21,6 +21,7 @@ class ApiController extends AbstractController
                 'dateFin' => $hackathon->getDateFin(),
                 'description' => $hackathon->getDescription(),
                 'nbPlaces' => $hackathon->getNbPlaces(),
+                'theme' => $hackathon->getTheme(),
         
             ];
         }
