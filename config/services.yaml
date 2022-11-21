@@ -29,7 +29,7 @@ services:
     service_pdo:
         class: App\Service\PdoHackathon
         arguments:
-            $server: 'mysql:host=127.0.0.1:3307'
-            $bdd: 'dbname=bdHackathon'
-            $user: 'root'
-            $mdp: ''
+            $server: 'mysql:host=192.168.4.1:3306'
+            $bdd: 'dbname=bdachiron7'
+            $user: 'sqlachiron'
+            $mdp: 'savary'
