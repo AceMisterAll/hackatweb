@@ -18,8 +18,15 @@ class ApiController extends AbstractController
             $TabHackathon[] = [
                 'id' => $hackathon->getId(),
                 'dateDebut' => $hackathon->getDateDebut(),
+                'heureDebut' => $hackathon->getHeureDebut(),
                 'dateFin' => $hackathon->getDateFin(),
+                'heureFin' => $hackathon->getHeureFin(),
+                'salle' => $hackathon->getSalle(),
+                'rue' => $hackathon->getRue(),
+                'cp' => $hackathon->getCp(),
+                'theme' => $hackathon->getTheme(),
                 'description' => $hackathon->getDescription(),
+                'image' => $hackathon->getImage(),
                 'nbPlaces' => $hackathon->getNbPlaces(),
         
             ];
