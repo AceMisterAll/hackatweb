@@ -16,9 +16,6 @@ class User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_user = null;
-
     #[ORM\Column(length: 30)]
     private ?string $nom = null;
 
