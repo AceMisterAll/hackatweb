@@ -17,17 +17,17 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-light">
+    <body style='background-color: #212529;'>
+        <nav class="navbar navbar-expand-lg bg-light" style="opacity: 0.55;  background-color: rgb(102,91,91) !important;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Hackat'Web</a>
+    <a class="navbar-brand" style="color: rgb(255 255 255)" href="{{path('app_home')}}">Hackat'Web</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="{{path('app_home')}}">accueil</a>
-        <a class="nav-link" href="{{path('app_hackathons')}}">liste des Hackathons</a>
+        <a class="nav-link active" style="color: rgb(255 255 255)" aria-current="page" href="{{path('app_home')}}">accueil</a>
+        <a class="nav-link" style="color: rgb(255 255 255)" href="{{path('app_hackathons')}}">liste des Hackathons</a>
       </div>
     </div>
   </div>

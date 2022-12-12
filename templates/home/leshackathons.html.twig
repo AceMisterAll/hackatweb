@@ -6,14 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
+<div style='
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    align-content: center;
+    '>
 {% for lehackathon in lehackathons %}
-<div class="card" style="width: 18rem;">
-        <img>{{ lehackathon.image }}</img>
-        <p>{{ lehackathon.theme }}</p>
-        <h3>{{ lehackathon.description }}</h3>
-        <p>{{ lehackathon.dateDebut | date("d:m:Y")}}</p>
-        <p>{{ lehackathon.dateFin | date("d:m:Y") }}</p>
+<div class="card" style="width: 355px; padding:5px; margin:10px">
+        <img src="{{ lehackathon.image }}" class="card-img-top" alt="..." >
+        <H3>{{ lehackathon.theme }}</H3>
+        <p>{{ lehackathon.description }}</p>
+        <p>Ce hackathons debute le {{ lehackathon.dateDebut | date("d:m:Y")}}</p>
+        <p>Et il fini le {{ lehackathon.dateFin | date("d:m:Y") }}</p>
         </div>
     {% endfor %}
+</div>
 {% endblock %}
