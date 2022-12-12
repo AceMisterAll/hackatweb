@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %} 
+{% block body %} 
+{% if error %} 
+    <div class="alert alert-danger"> 
+        {{ error.messageKey|trans(error.messageData, 'security') }} 
+    </div> 
+{% endif %}
+    <section class="vh-100" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Junction_2015.jpg/1200px-Junction_2015.jpg')"></div>>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="https://media.istockphoto.com/id/1189767037/fr/vectoriel/hackathon-signs-round-design-template-thin-line-icon-concept-vecteur.jpg?s=612x612&w=0&k=20&c=aebnvw1Eg6C3sSwqfFel4nmIBSpUx_4dYnn7y0IsoIM="
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form action="{{ path('app_login') }}" method="post">
+
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <h3 class="h1 fw-bold mb-0">Connection à votre compte</h3>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="text" id="login" name="_username" value="{{ last_username }}" class="form-control form-control-lg" />
+                    <label class="form-label" for="mail">Adresse Email</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" name="_password" class="form-control form-control-lg"/>
+                    <label class="form-label" for="mpd">Mot de passe</label>
+                  </div>
+
+                  <div class="pt-1 mb-6">
+                    <button class="btn btn-outline-primary btn-lg btn-block" type="submit">Se connecter</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} 

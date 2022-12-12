@@ -30,6 +30,16 @@
         <a class="nav-link" style="color: rgb(255 255 255)" href="{{path('app_hackathons')}}">liste des Hackathons</a>
       </div>
     </div>
+    <div> 
+      {% if not is_granted('IS_AUTHENTICATED_FULLY') %} 
+        <a class="btn btn-outline-success" href="{{ path('app_login') }}">Se connecter</a>
+        <a class="btn btn-secondary" href="{{ path('app_inscription') }}">S'inscrire</a>  
+      {% endif %}
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %} 
+        <a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Se déconnecter</a> 
+        <a>Connecté en tant que {{ app.user.mail }} </a>
+      {% endif %} 
+    </div> 
   </div>
 </nav>
         {% block body %}{% endblock %}

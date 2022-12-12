@@ -1,17 +1,33 @@
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+        #Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+        App\entity\User:
+            #plaintext signifie que les mots de passe ne sont pas hachés
+            algorithm: bcrypt
+
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+            # classe utilisateurs (elle peut avoir un autre nom que User)
+                class: App\Entity\User
+                property: mail # propriété de la classe d'user qui joue le rôle de login
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
-            provider: users_in_memory
+            form_login:
+                # "login" is the name of the route create previoulsy
+                login_path: app_login
+                check_path: app_login
+            logout:
+                # La route de déconnexion
+                path: app_logout
+                # La route de redirection après déconnexion
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
