@@ -37,18 +37,6 @@ class Inscrit
         return $this->id;
     }
 
-    public function getIdInscription(): ?int
-    {
-        return $this->id_inscription;
-    }
-
-    public function setIdInscription(int $id_inscription): self
-    {
-        $this->id_inscription = $id_inscription;
-
-        return $this;
-    }
-
     public function getNomInsc(): ?string
     {
         return $this->nom_insc;

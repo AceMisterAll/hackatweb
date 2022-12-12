@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    private $role = [];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -34,14 +37,8 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $lien_portfolio = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $login = null;
-
     #[ORM\Column(length: 255)]
     private ?string $mdp = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $sel = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Inscription::class, orphanRemoval: true)]
     private Collection $inscriptions;
@@ -54,18 +51,6 @@ class User
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdUser(): ?int
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(int $id_user): self
-    {
-        $this->id_user = $id_user;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -140,18 +125,6 @@ class User
         return $this;
     }
 
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
-
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
     public function getMdp(): ?string
     {
         return $this->mdp;
@@ -160,18 +133,6 @@ class User
     public function setMdp(string $mdp): self
     {
         $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    public function getSel(): ?string
-    {
-        return $this->sel;
-    }
-
-    public function setSel(string $sel): self
-    {
-        $this->sel = $sel;
 
         return $this;
     }
@@ -204,5 +165,42 @@ class User
         }
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->prenom." ".$this->nom;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->role;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setroles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        # à remplacer éventudement par la prorpiété contenant le mot de passe
+        return $this->mdp;
+    }
+
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
