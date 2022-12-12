@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Hackat'Web</a>
+    <a class="navbar-brand" href="{{path('app_home')}}">Hackat'Web</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,6 +30,16 @@
         <a class="nav-link" href="{{path('app_hackathons')}}">liste des Hackathons</a>
       </div>
     </div>
+    <div> 
+      {% if not is_granted('IS_AUTHENTICATED_FULLY') %} 
+        <a class="btn btn-outline-success" href="{{ path('app_login') }}">Se connecter</a>
+        <a class="btn btn-secondary" href="{{ path('app_inscription') }}">S'inscrire</a>  
+      {% endif %}
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %} 
+        <a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Se déconnecter</a> 
+        <a>Connecté en tant que {{ app.user.mail }} </a>
+      {% endif %} 
+    </div> 
   </div>
 </nav>
         {% block body %}{% endblock %}

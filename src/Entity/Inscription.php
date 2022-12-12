@@ -30,18 +30,6 @@ class Inscription
         return $this->id;
     }
 
-    public function getIdInsc(): ?int
-    {
-        return $this->id_insc;
-    }
-
-    public function setIdInsc(int $id_insc): self
-    {
-        $this->id_insc = $id_insc;
-
-        return $this;
-    }
-
     public function getDateInsc(): ?\DateTimeInterface
     {
         return $this->date_insc;

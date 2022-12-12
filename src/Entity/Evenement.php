@@ -43,18 +43,6 @@ class Evenement
         return $this->id;
     }
 
-    public function getIdEvenement(): ?int
-    {
-        return $this->id_evenement;
-    }
-
-    public function setIdEvenement(int $id_evenement): self
-    {
-        $this->id_evenement = $id_evenement;
-
-        return $this;
-    }
-
     public function getLibelle(): ?string
     {
         return $this->libelle;
