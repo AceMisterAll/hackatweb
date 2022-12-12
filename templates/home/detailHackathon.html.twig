@@ -69,20 +69,29 @@
 <div class="card" style="width: 100%;">
     <div class="inner">
     <div class="card-body">
-    <h2 class="title">{{ lehackathon.theme }}</h2>
+    <h1 class="title">{{ lehackathon.theme }}</h1>
+    <p><p>
     <h5>Description:</h5>
     <p>{{ lehackathon.description }}</p>
     <h5>Date Début du Hackathon:</h5>
     <time>{{ lehackathon.dateDebut | date("d/m/Y")}}</time>
     <p><p>
+    <h5>Heure Début du Hackathon:</h5>
+    <time>{{lehackathon.heureDebut | date("h:m")}}</time>
+    <p><p>
     <h5>Date Fin du Hackathon:</h5>
     <time>{{ lehackathon.dateFin | date("d/m/Y") }}</time>
+    <p><p>
+    <h5>Heure Fin du Hackathon:</h5>
+    <time>{{lehackathon.heureFin | date("h:m")}}</time>
     <p><p>
     <h5>Date Limite:</h5>
     <time>{{ lehackathon.dateLimite | date("d/m/Y") }}</time>
     <p><p>
     <h5>Nombre de Place:</h5>
     <p>{{lehackathon.nbPlaces}}<p>
+    <h5>Nom de la salle:</h5>
+    <p>{{lehackathon.salle}}
     <h5>Adresse: </h5>
     <p>{{lehackathon.rue}}, {{lehackathon.ville}}, {{lehackathon.cp}}<p>
     </div>
