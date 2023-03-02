@@ -13,7 +13,6 @@ filter: grayscale(1)brightness(0.5);}
         position: relative;
         padding: 0;
         display: block;
-        cursor: pointer;
         overflow: hidden;
       }
       .content {
@@ -53,11 +52,11 @@ filter: grayscale(1)brightness(0.5);}
     '>
 {% for lehackathon in lehackathons %}
 <div class="card" style="width: 355px; padding:5px; margin:10px">
-    <div class="groupe">
-      <img src="{{ lehackathon.image }}" class="card-img-top" >
+    <div class="groupe"> <href="{{ path('app_detailhackathon', {'id': lehackathon.id}) }}">
+        <img src="{{ lehackathon.image }}" class="card-img-top"> 
       <div class="content">
-        <div class="text">Test</div>
-      </div>
+        <div class="text">découvrir se hackathons</div>
+      </div></a>
     </div>
         <H3>{{ lehackathon.theme }}</H3>
         <p>{{ lehackathon.description }}</p>
