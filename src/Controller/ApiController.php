@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 use App\Entity\Hackathon;
+use App\Service\PdoHackathon;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
@@ -32,5 +35,23 @@ class ApiController extends AbstractController
             ];
         }
         return new JsonResponse($TabHackathon);
+    }
+
+    #[Route('/api/newinscrit', name: 'app_api_newinscrit', methods: ['POST'])]
+    public function inscrireatelier(Request $request, PdoHackathon $pdoHackathon)
+    {
+        $content = $request->getContent();
+        if (!empty($content)) {
+            $linscrit = json_decode($content, true);
+            $linscritajouter = $pdoHackathon->setLinscrit($linscrit);
+            $tabJson =
+                [
+                    'nom' => $linscritajouter['nom'],
+                    'prenom' => $linscritajouter['prenom'],
+                    'mail' => $linscritajouter['mail'],
+                    'initiationid' => $linscritajouter['initiationid'],
+                ];
+        }
+        return new JsonResponse($tabJson, Response::HTTP_CREATED);
     }
 }
