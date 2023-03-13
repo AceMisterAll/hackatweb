@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 use App\Entity\Hackathon;
+use App\Entity\Initiation;
+use App\Entity\Inscrit;
 use App\Service\PdoHackathon;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,18 +40,31 @@ class ApiController extends AbstractController
     }
 
     #[Route('/api/newinscrit', name: 'app_api_newinscrit', methods: ['POST'])]
-    public function inscrireatelier(Request $request, PdoHackathon $pdoHackathon)
+    public function inscrireatelier(Request $request, ManagerRegistry $doctrine)
     {
         $content = $request->getContent();
+        dump($content);
         if (!empty($content)) {
-            $linscrit = json_decode($content, true);
-            $linscritajouter = $pdoHackathon->setLinscrit($linscrit);
+            $postInscrit = json_decode($content, true);
+            dump($postInscrit);
+            $linscrit = new inscrit();
+            $linscrit->setNomInsc($postInscrit['nom']);
+            $linscrit->setPrenomInsc($postInscrit['prenom']);
+            $linscrit->setMail($postInscrit['mail']);
+            $repository = $doctrine->getRepository(Initiation::class);
+            $initiation = $repository->find($postInscrit['initiation_id']);
+            $linscrit->addInitiation($initiation);
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($linscrit);
+            $entityManager->flush();
+
+
             $tabJson =
                 [
-                    'nom' => $linscritajouter['nom'],
-                    'prenom' => $linscritajouter['prenom'],
-                    'mail' => $linscritajouter['mail'],
-                    'initiationid' => $linscritajouter['initiationid'],
+                    'nom' => $linscrit->getPrenomInsc(),
+                    'prenom' => $linscrit->getNomInsc(),
+                    'mail' => $linscrit->getMail(),
+                    'initiationid' => $initiation->getId(),
                 ];
         }
         return new JsonResponse($tabJson, Response::HTTP_CREATED);
