@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Entity\Hackathon;
-use App\Entity\Initiation;
+use App\Entity\Inscrit;
+use App\Service\PdoHackathon;
 use Doctrine\Persistence\ManagerRegistry;
 use SebastianBergmann\Environment\Console;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,6 +41,36 @@ class ApiController extends AbstractController
         return new JsonResponse($TabHackathon);
     }
 
+    #[Route('/api/newinscrit', name: 'app_api_newinscrit', methods: ['POST'])]
+    public function inscrireatelier(Request $request, ManagerRegistry $doctrine)
+    {
+        $content = $request->getContent();
+        dump($content);
+        if (!empty($content)) {
+            $postInscrit = json_decode($content, true);
+            dump($postInscrit);
+            $linscrit = new inscrit();
+            $linscrit->setNomInsc($postInscrit['nom']);
+            $linscrit->setPrenomInsc($postInscrit['prenom']);
+            $linscrit->setMail($postInscrit['mail']);
+            $repository = $doctrine->getRepository(Initiation::class);
+            $initiation = $repository->find($postInscrit['initiation_id']);
+            $linscrit->addInitiation($initiation);
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($linscrit);
+            $entityManager->flush();
+
+
+            $tabJson =
+                [
+                    'nom' => $linscrit->getPrenomInsc(),
+                    'prenom' => $linscrit->getNomInsc(),
+                    'mail' => $linscrit->getMail(),
+                    'initiationid' => $initiation->getId(),
+                ];
+        }
+        return new JsonResponse($tabJson, Response::HTTP_CREATED);
+        
     #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
     public function tabEvent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
     {
