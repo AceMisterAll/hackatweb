@@ -10,11 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: InitiationRepository::class)]
 class Initiation extends Evenement
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column]
     private ?int $nb_participant = null;
 
@@ -24,11 +19,6 @@ class Initiation extends Evenement
     public function __construct()
     {
         $this->inscrits = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getNbParticipant(): ?int
