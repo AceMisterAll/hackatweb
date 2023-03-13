@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Evenement;
+use App\Entity\Initiation;
 use App\Entity\Hackathon;
 use App\Entity\Inscrit;
-use App\Service\PdoHackathon;
 use Doctrine\Persistence\ManagerRegistry;
-use SebastianBergmann\Environment\Console;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,7 +69,7 @@ class ApiController extends AbstractController
         }
         return new JsonResponse($tabJson, Response::HTTP_CREATED);
     }
-    
+
     #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
     public function tabEvent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
     {
