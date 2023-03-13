@@ -70,7 +70,8 @@ class ApiController extends AbstractController
                 ];
         }
         return new JsonResponse($tabJson, Response::HTTP_CREATED);
-        
+    }
+    
     #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
     public function tabEvent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
     {
