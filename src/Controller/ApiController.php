@@ -70,14 +70,13 @@ class ApiController extends AbstractController
         return new JsonResponse($tabJson, Response::HTTP_CREATED);
     }
 
-    #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
-    public function tabEvent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
+    #[Route('/api/hackathon/{idHackathon}/evenements', name: 'app_evenement', methods: ['GET'])]
+    public function tabEvent(ManagerRegistry $doctrine, $idHackathon): JsonResponse
     {
         $Initiations = $doctrine->getRepository(Initiation::class);
-        $LesInitiations = $Initiations->findby(array('id' => $idEvenement));
-        dump($LesInitiations);
+        $LesInitiations = $Initiations->findby(array('hackathon' => $idHackathon));
         $Hackathons = $doctrine->getRepository(Hackathon::class);
-        $leHackathon = $Hackathons->find($idEvenement);
+        $leHackathon = $Hackathons->find($idHackathon);
 
         if($leHackathon !== null)
         {
