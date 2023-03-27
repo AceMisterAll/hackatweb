@@ -22,10 +22,10 @@ class ApiController extends AbstractController
         foreach ($hackathons as $hackathon) {
             $TabHackathon[] = [
                 'id' => $hackathon->getId(),
-                'dateDebut' => $hackathon->getDateDebut(),
-                'heureDebut' => $hackathon->getHeureDebut(),
-                'dateFin' => $hackathon->getDateFin(),
-                'heureFin' => $hackathon->getHeureFin(),
+                'dateDebut' => $hackathon->getDateDebut()->format('Y-m-d'),
+                'heureDebut' => $hackathon->getHeureDebut()->format('H:i:s'),
+                'dateFin' => $hackathon->getDateFin()->format('Y-m-d'),
+                'heureFin' => $hackathon->getHeureFin()->format('H:i:s'),
                 'salle' => $hackathon->getSalle(),
                 'rue' => $hackathon->getRue(),
                 'cp' => $hackathon->getCp(),
@@ -88,9 +88,9 @@ class ApiController extends AbstractController
                     'id' => $uneInitiation->getId(),
                     'nbParticipant' => $uneInitiation->getNbParticipant(),
                     'libelleEvenement' => $uneInitiation->getLibelle(),
-                    'date' => $uneInitiation->getDate(),
-                    'heure' => $uneInitiation->getHeure(),
-                    'duree' => $uneInitiation->getDuree(),
+                    'date' => $uneInitiation->getDate()->format('Y-m-d'),
+                    'heure' => $uneInitiation->getHeure()->format('H:i:s'),
+                    'duree' => $uneInitiation->getDuree()->format('H:i:s'),
                     'salle' => $uneInitiation->getSalle(),
 
                 ];
