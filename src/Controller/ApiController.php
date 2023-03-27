@@ -32,8 +32,7 @@ class ApiController extends AbstractController
                 'theme' => $hackathon->getTheme(),
                 'description' => $hackathon->getDescription(),
                 'image' => $hackathon->getImage(),
-                'nbPlaces' => $hackathon->getNbPlaces(),
-        
+                'nbPlaces' => $hackathon->getNbPlaces(),        
             ];
         }
         return new JsonResponse($TabHackathon);
@@ -54,6 +53,7 @@ class ApiController extends AbstractController
             $repository = $doctrine->getRepository(Initiation::class);
             $initiation = $repository->find($postInscrit['initiation_id']);
             $linscrit->addInitiation($initiation);
+            $initiation->setNbParticipant($initiation->getNbParticipant() + 1);
             $entityManager = $doctrine->getManager();
             $entityManager->persist($linscrit);
             $entityManager->flush();
@@ -92,7 +92,7 @@ class ApiController extends AbstractController
                     'heure' => $uneInitiation->getHeure()->format('H:i:s'),
                     'duree' => $uneInitiation->getDuree()->format('H:i:s'),
                     'salle' => $uneInitiation->getSalle(),
-
+                    'place_max' => $uneInitiation->getParticipantMax(),
                 ];
             }
             return new JsonResponse($tableau);
