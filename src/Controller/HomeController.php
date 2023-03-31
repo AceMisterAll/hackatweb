@@ -24,7 +24,6 @@ class HomeController extends AbstractController
     {
         $repository = $doctrine->getRepository(Hackathon::class);
         $lehackathon = $repository->findall();
-        dump($lehackathon);
         return $this->render('home/leshackathons.html.twig', [
             'lehackathons' => $lehackathon,
         ]);

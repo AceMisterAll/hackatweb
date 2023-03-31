@@ -42,10 +42,8 @@ class ApiController extends AbstractController
     public function inscrireatelier(Request $request, ManagerRegistry $doctrine)
     {
         $content = $request->getContent();
-        dump($content);
         if (!empty($content)) {
             $postInscrit = json_decode($content, true);
-            dump($postInscrit);
             $linscrit = new inscrit();
             $linscrit->setNomInsc($postInscrit['nom']);
             $linscrit->setPrenomInsc($postInscrit['prenom']);
