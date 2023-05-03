@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hackathon;
 use App\Entity\Inscription;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,6 +70,7 @@ class HomeController extends AbstractController
     // récupere la date d'aujourd'hui
     $inscription->setDateInsc(new \DateTime());
 
+    inscription-hackathons
     // Enregistrer l'inscription
     $entityManager = $doctrine->getManager();
     $entityManager->persist($inscription);
