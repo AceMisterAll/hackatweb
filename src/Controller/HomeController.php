@@ -66,12 +66,16 @@ class HomeController extends AbstractController
     $inscription = new Inscription();
     $inscription->setHackathon($hackathon);
     $inscription->setUser($user);
+    // récupere la date d'aujourd'hui
+    $inscription->setDateInsc(new \DateTime());
 
     // Enregistrer l'inscription
-    $entityManager = $Doctrine->getManager();
+    $entityManager = $doctrine->getManager();
     $entityManager->persist($inscription);
     $entityManager->flush();
 
-    return new Response('Inscription réussie!');
+    //return new Response('Inscription réussie!');
+    //ajoute un lien vers la page des hackathons
+    return $this->redirectToRoute('app_hackathons');
 }
 }
