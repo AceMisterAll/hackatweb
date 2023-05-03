@@ -44,6 +44,7 @@
                 <div class="col-md-6 mb-4">
                     <div class="form-outline">
                         {{ form_row(form.tel) }}
+                        <span class="text-danger" id="erreurtel"></span>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
@@ -56,11 +57,13 @@
                 <!-- Lien portfolio input -->
                 <div class="form-outline mb-4">
                   {{ form_row(form.lien_portfolio) }}
+                    <span class="text-danger" id="erreurlienportfolio"></span>
                 </div>
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                   {{ form_row(form.mail) }}
+                    <span class="text-danger" id="erreurmail"></span>
                 </div>
 
                 <!-- Password input -->
@@ -78,4 +81,7 @@
     </div>
   </div>
 </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/validForm.js') }}"></script>
 {% endblock %}
