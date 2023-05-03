@@ -78,4 +78,27 @@ class HomeController extends AbstractController
     //ajoute un lien vers la page des hackathons
     return $this->redirectToRoute('app_hackathons');
 }
+
+#[Route('/MesHackathons', name: 'app_mes_hackathons')]
+public function mesHackathons(): Response
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return $this->redirectToRoute('app_login');
+    }
+    $inscriptions = $user->getInscriptions();
+    $mesHackathons = array();
+
+    foreach ($inscriptions as $inscription) {
+        $hackathon = $inscription->getHackathon();
+        array_push($mesHackathons, $hackathon);
+    }
+
+    return $this->render('home/MesHackathons.html.twig', [
+        'mesHackathons' => $mesHackathons,
+    ]);
 }
+
+}
+
+    
