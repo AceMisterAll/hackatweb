@@ -16,6 +16,9 @@ class Initiation extends Evenement
     #[ORM\ManyToMany(targetEntity: Inscrit::class, mappedBy: 'initiation')]
     private Collection $inscrits;
 
+    #[ORM\Column]
+    private ?int $participant_max = null;
+
     public function __construct()
     {
         $this->inscrits = new ArrayCollection();
@@ -56,6 +59,18 @@ class Initiation extends Evenement
         if ($this->inscrits->removeElement($inscrit)) {
             $inscrit->removeInitiation($this);
         }
+
+        return $this;
+    }
+
+    public function getParticipantMax(): ?int
+    {
+        return $this->participant_max;
+    }
+
+    public function setParticipantMax(int $participant_max): self
+    {
+        $this->participant_max = $participant_max;
 
         return $this;
     }

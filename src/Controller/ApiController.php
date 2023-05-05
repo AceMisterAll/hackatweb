@@ -22,18 +22,17 @@ class ApiController extends AbstractController
         foreach ($hackathons as $hackathon) {
             $TabHackathon[] = [
                 'id' => $hackathon->getId(),
-                'dateDebut' => $hackathon->getDateDebut(),
-                'heureDebut' => $hackathon->getHeureDebut(),
-                'dateFin' => $hackathon->getDateFin(),
-                'heureFin' => $hackathon->getHeureFin(),
+                'dateDebut' => $hackathon->getDateDebut()->format('Y-m-d'),
+                'heureDebut' => $hackathon->getHeureDebut()->format('H:i:s'),
+                'dateFin' => $hackathon->getDateFin()->format('Y-m-d'),
+                'heureFin' => $hackathon->getHeureFin()->format('H:i:s'),
                 'salle' => $hackathon->getSalle(),
                 'rue' => $hackathon->getRue(),
                 'cp' => $hackathon->getCp(),
                 'theme' => $hackathon->getTheme(),
                 'description' => $hackathon->getDescription(),
                 'image' => $hackathon->getImage(),
-                'nbPlaces' => $hackathon->getNbPlaces(),
-        
+                'nbPlaces' => $hackathon->getNbPlaces(),        
             ];
         }
         return new JsonResponse($TabHackathon);
@@ -43,10 +42,8 @@ class ApiController extends AbstractController
     public function inscrireatelier(Request $request, ManagerRegistry $doctrine)
     {
         $content = $request->getContent();
-        dump($content);
         if (!empty($content)) {
             $postInscrit = json_decode($content, true);
-            dump($postInscrit);
             $linscrit = new inscrit();
             $linscrit->setNomInsc($postInscrit['nom']);
             $linscrit->setPrenomInsc($postInscrit['prenom']);
@@ -54,6 +51,7 @@ class ApiController extends AbstractController
             $repository = $doctrine->getRepository(Initiation::class);
             $initiation = $repository->find($postInscrit['initiation_id']);
             $linscrit->addInitiation($initiation);
+            $initiation->setNbParticipant($initiation->getNbParticipant() + 1);
             $entityManager = $doctrine->getManager();
             $entityManager->persist($linscrit);
             $entityManager->flush();
@@ -70,14 +68,13 @@ class ApiController extends AbstractController
         return new JsonResponse($tabJson, Response::HTTP_CREATED);
     }
 
-    #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
-    public function tabEvent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
+    #[Route('/api/hackathon/{idHackathon}/evenements', name: 'app_evenement', methods: ['GET'])]
+    public function tabEvent(ManagerRegistry $doctrine, $idHackathon): JsonResponse
     {
         $Initiations = $doctrine->getRepository(Initiation::class);
-        $LesInitiations = $Initiations->findby(array('id' => $idEvenement));
-        dump($LesInitiations);
+        $LesInitiations = $Initiations->findby(array('hackathon' => $idHackathon));
         $Hackathons = $doctrine->getRepository(Hackathon::class);
-        $leHackathon = $Hackathons->find($idEvenement);
+        $leHackathon = $Hackathons->find($idHackathon);
 
         if($leHackathon !== null)
         {
@@ -89,11 +86,11 @@ class ApiController extends AbstractController
                     'id' => $uneInitiation->getId(),
                     'nbParticipant' => $uneInitiation->getNbParticipant(),
                     'libelleEvenement' => $uneInitiation->getLibelle(),
-                    'date' => $uneInitiation->getDate(),
-                    'heure' => $uneInitiation->getHeure(),
-                    'duree' => $uneInitiation->getDuree(),
+                    'date' => $uneInitiation->getDate()->format('Y-m-d'),
+                    'heure' => $uneInitiation->getHeure()->format('H:i:s'),
+                    'duree' => $uneInitiation->getDuree()->format('H:i:s'),
                     'salle' => $uneInitiation->getSalle(),
-
+                    'place_max' => $uneInitiation->getParticipantMax(),
                 ];
             }
             return new JsonResponse($tableau);
