@@ -102,4 +102,38 @@ class ApiController extends AbstractController
             return new JsonResponse(['message' => 'Hackathon not found'], Response::HTTP_NOT_FOUND);
         }
     }
+
+    #[Route('/api/hackathon/{idEvenement}/evenements', name: 'app_evenement', methods: ['GET'])]
+    public function hackathonsversevent(ManagerRegistry $doctrine, $idEvenement): JsonResponse
+    {
+        $Initiations = $doctrine->getRepository(Initiation::class);
+        $LesInitiations = $Initiations->findby(array('id' => $idEvenement));
+        dump($LesInitiations);
+        $Hackathons = $doctrine->getRepository(Hackathon::class);
+        $leHackathon = $Hackathons->find($idEvenement);
+
+        if($leHackathon !== null)
+        {
+            $tableau = [];
+            foreach($LesInitiations as $uneInitiation)
+            {
+                $tableau[] =
+                [
+                    'id' => $uneInitiation->getId(),
+                    'nbParticipant' => $uneInitiation->getNbParticipant(),
+                    'libelleEvenement' => $uneInitiation->getLibelle(),
+                    'date' => $uneInitiation->getDate(),
+                    'heure' => $uneInitiation->getHeure(),
+                    'duree' => $uneInitiation->getDuree(),
+                    'salle' => $uneInitiation->getSalle(),
+
+                ];
+            }
+            return new JsonResponse($tableau);
+        }
+        else{
+            return new JsonResponse(['message' => 'Hackathon not found'], Response::HTTP_NOT_FOUND);
+        }
+    }
+    
 }

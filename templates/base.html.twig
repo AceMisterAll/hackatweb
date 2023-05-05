@@ -28,11 +28,15 @@
       <div class="navbar-nav">
         <a class="nav-link active" style="color: rgb(255 255 255)" aria-current="page" href="{{path('app_home')}}">accueil</a>
         <a class="nav-link" style="color: rgb(255 255 255)" href="{{path('app_hackathons')}}">liste des Hackathons</a>
+
       </div>
     </div>
-    <div> 
+    <div style="display: flex;">
+    {% block recherche %}
+    
+      {% endblock %}
       {% if not is_granted('IS_AUTHENTICATED_FULLY') %} 
-        <a class="btn btn-outline-success" href="{{ path('app_login') }}">Se connecter</a>
+        <a class="btn btn-outline-suc.cess" href="{{ path('app_login') }}" style="margin-right: 10px;">Se connecter</a>
         <a class="btn btn-secondary" href="{{ path('app_inscription') }}">S'inscrire</a>  
       {% endif %}
       {% if is_granted('IS_AUTHENTICATED_FULLY') %} 
