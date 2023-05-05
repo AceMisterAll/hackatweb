@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block recherche %}
+    <form class="d-flex" action="{{ path('app_hackathons_search') }}" method="POST">
+      <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="search" style="width: 61%;";>
+      <button class="btn btn-outline-success" type="submit">Rechercher</button>
+    </form>
+      {% endblock %}
+
 {% block body %}
 <head>
   <meta charset="utf-8">
@@ -52,8 +59,8 @@ filter: grayscale(1)brightness(0.5);}
     '>
 {% for lehackathon in lehackathons %}
 <div class="card" style="width: 355px; padding:5px; margin:10px">
-    <div class="groupe"> <href="{{ path('app_detailhackathon', {'id': lehackathon.id}) }}">
-        <img src="{{ lehackathon.image }}" class="card-img-top"> 
+    <div class="groupe"> <a href="{{ path('app_detailhackathon', {'id': lehackathon.id}) }}">
+        <img src="{{ lehackathon.image }}" class="card-img-top" > 
       <div class="content">
         <div class="text">découvrir se hackathons</div>
       </div></a>
@@ -68,7 +75,7 @@ filter: grayscale(1)brightness(0.5);}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %} 
         <a href="{{ path('inscription', {'idHackathon': lehackathon.id}) }}" class="btn btn-dark" role="button">S'inscrire a se hackathon</a>
         {% endif %} <br>
-        <a type="link" href="{{path('app_home')}}" class="btn btn-dark" role="button">voir les évènements</a>
+        <!--  <a type="link" href="{{ path('app_event', {'id': lehackathon.id}) }}" class="btn btn-dark" role="button">voir les évènements</a>  -->
         </div>
     {% endfor %}
 </div>

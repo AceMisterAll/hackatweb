@@ -100,5 +100,3 @@ public function mesHackathons(): Response
 }
 
 }
-
-    

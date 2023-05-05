@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style>
+.card {
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  border: 4px solid black;
+  margin-bottom: 20px;
+  background-image : url( {{ lehackathon.image }} );
+  background-size:cover; 
+  @include media {
+    height: 500px;
+  }
+}
+.title {
+  font-size: 24px;
+  color: black;  
+  text-align: center;
+  font-weight: 700;
+  color: #181818;
+  text-shadow: 0px 2px 2px #a6f8d5;
+  position: relative;
+  margin: 0 0 20px 0;
+  
+  @include media {
+    font-size: 30px;
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center; 
+  background:  white;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 50%;
+  height: 100%;
+  
+}
+
+.siteTitle {
+  display: block;
+  font-weight: 900;
+  font-size: 30px;
+  margin: 20px 0;
+  
+  @include media {
+    font-size: 60px;
+  }
+}
+
+</style>
+
+<header>
+  <span style= "color:white"class="siteTitle">Liste des évenements lié aux Hackathon: {{ lehackathon.theme }}<span>
+
+
+</header>
+<div class="card" style="width: 100%;display: flex;flex-direction: row;flex-wrap: nowrap;">
+    <div class="inner">
+    <div class="card-body">
+    <h1 class="title">Les conférence lié au Hackathons {{ lehackathon.theme }}</h1>
+    <p><p>    {{ dump(lehackathon,event,conference,initiation) }}
+    <h5>Description:</h5>
+    <p>{{ event.libelle }}</p>
+    <h5>Date de la conférence:</h5>
+    <time>{{ event.date | date("d/m/Y")}}</time>
+    <p><p>
+    <h5>Heure de la conférence:</h5>
+    <time>{{ event.heure | date("h:m")}}</time>
+    <p><p>
+    <h5>Durée de la conférence:</h5>
+    <time>{{ event.duree }}</time>
+    <p><p>
+    <h5>Salle de la conférence:</h5>
+    <time>{{ event.salle }}</time>
+    <p><p>
+    <h5>theme de la conférence:</h5>
+    <time>{{ conference.theme }}</time>
+    <p><p>
+    <h5>Nombre de Place:</h5>
+    <p>{{lehackathon.nbPlaces}}<p>
+    <h5>Nom de la salle:</h5>
+    <p>{{lehackathon.salle}}
+    <h5>Adresse: </h5>
+    <p>{{lehackathon.rue}}, {{lehackathon.ville}}, {{lehackathon.cp}}<p>
+    </div>
+    </div>
+
+    <div class="inner">
+    <div class="card-body">
+    <h1 class="title">Les initiation lié au Hackathons {{ lehackathon.theme }}</h1>
+    <p><p>
+    <h5>Description:</h5>
+    <p>{{ lehackathon.description }}</p>
+    <h5>Date Début du Hackathon:</h5>
+    <time>{{ lehackathon.dateDebut | date("d/m/Y")}}</time>
+    <p><p>
+    <h5>Heure Début du Hackathon:</h5>
+    <time>{{lehackathon.heureDebut | date("h:m")}}</time>
+    <p><p>
+    <h5>Date Fin du Hackathon:</h5>
+    <time>{{ lehackathon.dateFin | date("d/m/Y") }}</time>
+    <p><p>
+    <h5>Heure Fin du Hackathon:</h5>
+    <time>{{lehackathon.heureFin | date("h:m")}}</time>
+    <p><p>
+    <h5>Date Limite:</h5>
+    <time>{{ lehackathon.dateLimite | date("d/m/Y") }}</time>
+    <p><p>
+    <h5>Nombre de Place:</h5>
+    <p>{{lehackathon.nbPlaces}}<p>
+    <h5>Nom de la salle:</h5>
+    <p>{{lehackathon.salle}}
+    <h5>Adresse: </h5>
+    <p>{{lehackathon.rue}}, {{lehackathon.ville}}, {{lehackathon.cp}}<p>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

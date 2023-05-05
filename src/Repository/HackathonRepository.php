@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Hackathon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<Hackathon>
@@ -63,4 +64,13 @@ class HackathonRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findThemeLike($search): array {
+        $query = $this->createQueryBuilder('h')
+            ->andWhere('h.theme LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery();
+
+        return $query->getResult(); 
+    }
 }
