@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style>
+.card-img:hover, .card-img-top:hover{
+filter: grayscale(1)brightness(0.5);}
+.groupe {
+        position: relative;
+        padding: 0;
+        display: block;
+        overflow: hidden;
+      }
+      .content {
+        opacity: 0;
+        font-size: 35px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #FFFFFF;
+        background-color: rgba(000, 000, 000, 0.5);
+        width: 350px;
+        height: 300px;
+        -webkit-transition: all 400ms ease-out;
+        -moz-transition: all 400ms ease-out;
+        -o-transition: all 400ms ease-out;
+        -ms-transition: all 400ms ease-out;
+        transition: all 400ms ease-out;
+        text-align: center;
+      }
+      .groupe .content:hover {
+        opacity: 1;
+      }
+      .groupe .content .text {
+        height: 0;
+        opacity: 1;
+        transition-delay: 0s;
+        transition-duration: 0.4s;
+      }
+      
+</style>
+<div style='
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    align-content: center;
+    '>
+{% for mesHackathons in mesHackathons %}
+<div class="card" style="width: 355px; padding:5px; margin:10px">
+    <div class="groupe"> <href="{{ path('app_mes_hackathons', {'id': mesHackathons.id}) }}">
+        <img src="{{ mesHackathons.image }}" class="card-img-top"> 
+      <div class="content">
+        <div class="text">découvrir se hackathons</div>
+      </div></a>
+    </div>
+        <H3>{{ mesHackathons.theme }}</H3>
+        <p>{{ mesHackathons.description }}</p>
+        <p>Ce hackathons debute le {{ mesHackathons.dateDebut | date("d/m/Y")}}</p>
+        <p>Et il fini le {{ mesHackathons.dateFin | date("d/m/Y") }}</p>
+    {% endfor %}
+</div>
+{% endblock %}
