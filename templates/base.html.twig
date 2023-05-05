@@ -30,7 +30,9 @@
     {% block recherche %}
     
       {% endblock %}
+      <div style="display: flex;">
       {% if not is_granted('IS_AUTHENTICATED_FULLY') %} 
+        <a class="btn btn-outline-suc.cess" href="{{ path('app_login') }}" style="margin-right: 10px;">Se connecter</a>
         <a class="btn btn-outline-suc.cess" href="{{ path('app_login') }}" style="margin-right: 10px;">Se connecter</a>
         <a class="btn btn-secondary" href="{{ path('app_inscription') }}">S'inscrire</a>  
       {% endif %}

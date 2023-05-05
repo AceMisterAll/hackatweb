@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controller;
-
+use app\Entity\Conference;
+use app\entity\Evenement;
+use app\entity\Initiation;
 use App\Entity\Hackathon;
 use App\Entity\Inscription;
 use Doctrine\Persistence\ManagerRegistry;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class HomeController extends AbstractController
 
@@ -29,6 +32,34 @@ class HomeController extends AbstractController
             //'controller_name' => 'HomeController',
             'messageAccueil' => 'Bienvenue',
         ]);
+    }
+
+    #[Route('event/{id}', name: 'app_event')]
+    public function event(ManagerRegistry $doctrine, $id): Response
+    {
+        $repository=$doctrine->getRepository(Evenement::class);
+        $Event = $repository->find($id);
+        $repository2=$doctrine->getRepository(Hackathon::class);
+        $lehackathon=$repository2->find($id);
+        $repository3=$doctrine->getRepository(Conference::class);
+        $Conference=$repository3->find($id);
+        $repository4=$doctrine->getRepository(Initiation::class);
+        $Initiation=$repository4->find($id);
+         dump(
+            $Event,
+            $lehackathon,
+            $Conference,
+            $Initiation
+        );
+
+        return $this->render('home/event.html.twig', [
+            'event' => $Event,
+            'lehackathon' => $lehackathon,
+            'conference' => $Conference,
+            'initiation' => $Initiation,
+        ]);
+
+
     }
 
     #[Route('/hackathons', name: 'app_hackathons')]
@@ -98,5 +129,16 @@ public function mesHackathons(): Response
         'mesHackathons' => $mesHackathons,
     ]);
 }
+
+#[Route('/hackathons_search', name: 'app_hackathons_search', methods : ['POST'])]
+    public function ListeHackathonSearch(ManagerRegistry $doctrine, Request $request ): Response
+    {
+        $search = $request->request->get('search');
+        $repository = $doctrine->getRepository(Hackathon::class);
+        $lehackathon = $repository->findThemeLike($search); 
+        return $this->render('home/leshackathons.html.twig', [
+            'lehackathons' => $lehackathon,
+        ]);
+    }
 
 }
